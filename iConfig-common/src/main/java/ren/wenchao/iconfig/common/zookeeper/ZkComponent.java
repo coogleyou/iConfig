@@ -1,14 +1,17 @@
-package ren.wenchao.iconfig.component.zookeeper;
+package ren.wenchao.iconfig.common.zookeeper;
 
 import com.google.common.base.Suppliers;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.api.BackgroundCallback;
+import org.apache.curator.framework.recipes.cache.NodeCache;
+import org.apache.curator.framework.recipes.cache.NodeCacheListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.Watcher;
 import org.springframework.stereotype.Component;
+import ren.wenchao.iconfig.common.face.NodeChangedCallback;
 
 import java.util.List;
 
@@ -85,4 +88,11 @@ public class ZkComponent {
             throws Exception {
         return client.getChildren().usingWatcher(watcher).forPath(path);
     }
+
+    public void watchNodeData(String path, boolean dataIsCompressed, NodeChangedCallback callback) throws Exception{
+        NodeCache nodeCache = new NodeCache(client, path, dataIsCompressed);
+        nodeCache.start(true);
+        nodeCache.getListenable().addListener(() -> callback.onNodeChanged(path, nodeCache));
+    }
+
 }

@@ -8,6 +8,7 @@
     <modules>
         <module>iConfig-client</module>
         <module>iConfig-server</module>
+        <module>iConfig-common</module>
     </modules>
     <name>iConfig Maven Webapp</name>
     <url>http://maven.apache.org</url>

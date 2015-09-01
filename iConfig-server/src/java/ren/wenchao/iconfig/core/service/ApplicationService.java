@@ -1,7 +1,7 @@
 package ren.wenchao.iconfig.core.service;
 
 import org.springframework.stereotype.Service;
-import ren.wenchao.iconfig.component.zookeeper.ZkComponent;
+import ren.wenchao.iconfig.common.zookeeper.ZkComponent;
 
 import javax.annotation.Resource;
 
