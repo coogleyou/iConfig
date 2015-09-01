@@ -1,4 +1,4 @@
-package ren.wenchao.iconfig.zookeeper;
+package ren.wenchao.iconfig.component.zookeeper;
 
 import com.google.common.base.Suppliers;
 import org.apache.curator.RetryPolicy;
@@ -8,12 +8,14 @@ import org.apache.curator.framework.api.BackgroundCallback;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.Watcher;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * @author rollenholt
  */
+@Component
 public class ZkComponent {
 
     private final CuratorFramework client;
