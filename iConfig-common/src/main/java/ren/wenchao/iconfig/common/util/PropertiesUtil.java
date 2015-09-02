@@ -1,4 +1,4 @@
-package ren.wenchao.iconfig.server.service;
+package ren.wenchao.iconfig.common.util;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -10,16 +10,15 @@ import java.util.Properties;
 /**
  * @author rollenholt
  */
-public class MapConfig extends AbstractConfiguration<Map<String, String>> {
+public class PropertiesUtil {
 
     public static Map<String, String> parseProperties(String data) throws IOException {
-        if (data == null)
+        if (data == null) {
             return Collections.emptyMap();
+        }
 
         Properties p = new Properties();
-
         p.load(new StringReader(data));
-
         Map<String, String> map = new LinkedHashMap<>(p.size());
 
         for (String key : p.stringPropertyNames()) {

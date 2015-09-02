@@ -8,11 +8,8 @@ import org.apache.curator.framework.api.BackgroundCallback;
 import org.apache.curator.framework.recipes.cache.NodeCache;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.Watcher;
 import org.springframework.stereotype.Component;
-import ren.wenchao.iconfig.common.face.NodeChangedCallback;
-
-import java.util.List;
+import ren.wenchao.iconfig.common.face.NodeChangedListener;
 
 /**
  * @author rollenholt
@@ -22,17 +19,21 @@ public class ZkComponent {
 
     private final CuratorFramework client;
 
-    public ZkComponent(final String connectString) {
+    public ZkComponent() {
         client = Suppliers.memoize(() -> {
             RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
             CuratorFramework client1 = CuratorFrameworkFactory.builder()
-                    .connectString(connectString)
+                    .connectString(ZkConstrants.zkConnectString)
                     .retryPolicy(retryPolicy)
                     .connectionTimeoutMs(1000)
                     .sessionTimeoutMs(5000).build();
             client1.start();
             return client1;
         }).get();
+    }
+
+    public CuratorFramework client() {
+        return client;
     }
 
     /**
@@ -79,16 +80,11 @@ public class ZkComponent {
         client.delete().guaranteed().forPath(path);
     }
 
-    public List<String> getChildren(String path) throws Exception {
-        return client.getChildren().forPath(path);
+    public byte[] getData(String path) throws Exception {
+        return client.getData().forPath(path);
     }
 
-    public List<String> watchedGetChildren(CuratorFramework client, String path, Watcher watcher)
-            throws Exception {
-        return client.getChildren().usingWatcher(watcher).forPath(path);
-    }
-
-    public void watchNodeData(String path, boolean dataIsCompressed, NodeChangedCallback callback) throws Exception{
+    public void watchNodeData(String path, boolean dataIsCompressed, NodeChangedListener callback) throws Exception{
         NodeCache nodeCache = new NodeCache(client, path, dataIsCompressed);
         nodeCache.start(true);
         nodeCache.getListenable().addListener(() -> callback.onNodeChanged(path, nodeCache));
