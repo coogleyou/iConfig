@@ -4,9 +4,10 @@ package ren.wenchao.iconfig.common.face;
 import org.apache.curator.framework.recipes.cache.NodeCache;
 
 /**
- * Created by wenchao.ren on 2015/9/1.
+ * @author wenchao.ren
+ *         节点数据变更的回调接口
  */
-public interface NodeChangedCallback {
+public interface NodeChangedListener {
 
     void onNodeChanged(String path, NodeCache nodeCache) throws Exception;
 }
