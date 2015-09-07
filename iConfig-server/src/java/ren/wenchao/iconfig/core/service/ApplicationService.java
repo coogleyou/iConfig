@@ -40,4 +40,19 @@ public class ApplicationService {
         //todo communicate with zk
         return new ApplicationConfigInfo();
     }
+
+    /**
+     * 将应用接入iconfig
+     *
+     * @param applicationCode 应用编号
+     */
+    public void joinIConfig(String applicationCode) {
+        String applicationName = applicationDao.queryApplicationName(applicationCode);
+        String path = "/" + applicationCode;
+        zkComponent.create(path, new byte[0]);
+        zkComponent.create(path + "/" + "dev", applicationName.getBytes());
+        zkComponent.create(path + "/" + "beta", new byte[0]);
+        zkComponent.create(path + "/" + "prod", new byte[0]);
+        applicationDao.joinIConfig(applicationCode);
+    }
 }

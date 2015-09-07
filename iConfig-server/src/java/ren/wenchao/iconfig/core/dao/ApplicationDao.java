@@ -19,4 +19,8 @@ public interface ApplicationDao {
      * @return 返回查询到的应用信息
      */
     List<ConfigedApplication> queryConfigedApplications(String userName);
+
+    String queryApplicationName(String applicationCode);
+
+    void joinIConfig(String applicationCode);
 }
