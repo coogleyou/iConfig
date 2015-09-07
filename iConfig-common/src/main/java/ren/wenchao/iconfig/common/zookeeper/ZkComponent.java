@@ -1,6 +1,7 @@
 package ren.wenchao.iconfig.common.zookeeper;
 
 import com.google.common.base.Suppliers;
+import com.google.common.base.Throwables;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -34,6 +35,19 @@ public class ZkComponent {
 
     public CuratorFramework client() {
         return client;
+    }
+
+    /**
+     * 创建持久节点
+     * @param path 节点路径
+     * @param payload 节点数据
+     */
+    public void create(String path, byte[] payload) {
+        try {
+            client.create().withMode(CreateMode.PERSISTENT).forPath(path, payload);
+        } catch (Exception e) {
+            throw Throwables.propagate(e);
+        }
     }
 
     /**
