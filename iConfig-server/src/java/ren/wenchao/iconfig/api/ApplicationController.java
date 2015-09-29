@@ -50,4 +50,11 @@ public class ApplicationController {
         applicationService.joinIConfig(applicationCode);
         return new JsonV2<>(0, "ok", applicationCode);
     }
+
+    @RequestMapping(value = "/{applicationCode}/serverInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonV2 queryServerInfo(@PathVariable("applicationCode") String applicationCode) {
+//        applicationService.queryServerInfo(applicationCode);
+        return new JsonV2(1, "", null);
+    }
 }

@@ -3,7 +3,7 @@
     <parent>
         <artifactId>iConfig</artifactId>
         <groupId>ren.wenchao</groupId>
-        <version>1.0.x-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iConfig-server</artifactId>
@@ -11,12 +11,16 @@
     <name>iConfig-server Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
+    <properties>
+        <maven_deploy_skip>true</maven_deploy_skip>
+    </properties>
+
     <dependencies>
 
         <dependency>
             <groupId>ren.wenchao</groupId>
             <artifactId>iConfig-common</artifactId>
-            <version>1.0.x-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
