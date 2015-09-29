@@ -37,7 +37,7 @@ public class ServerRegister {
         UriTemplate uriTemplate = new UriTemplate(ZkConstrants.applicationServerListParentNodePath);
         String applicationServerListParentNodePath = uriTemplate.expand(teamCode, applicationCode).toString();
         try {
-            zkComponent.createEphemeralSequential(applicationServerListParentNodePath + nodeValue, hostName.getBytes());
+            zkComponent.createEphemeral(applicationServerListParentNodePath + nodeValue, hostName.getBytes());
         } catch (Exception e) {
             logger.error("主机注册失败:{}", e.getMessage(), e);
             throw Throwables.propagate(e);
