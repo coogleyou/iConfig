@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriTemplate;
-import ren.wenchao.iconfig.common.util.HostUtil;
+import ren.wenchao.iconfig.common.util.ServerUtil;
 import ren.wenchao.iconfig.common.zookeeper.ZkComponent;
 import ren.wenchao.iconfig.common.zookeeper.ZkConstrants;
 
@@ -30,8 +30,8 @@ public class ServerRegister {
     private final Logger logger = LoggerFactory.getLogger(ServerRegister.class);
 
     public void register(String teamCode, String applicationCode) {
-        String hostName = HostUtil.getHostName();
-        String hostIp = HostUtil.getHostIp();
+        String hostName = ServerUtil.getHostName();
+        String hostIp = ServerUtil.getHostIp();
         int port = fetchPort();
         String nodeValue = joiner.join(hostIp, port);
         UriTemplate uriTemplate = new UriTemplate(ZkConstrants.applicationServerListParentNodePath);
