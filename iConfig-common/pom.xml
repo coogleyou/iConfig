@@ -11,6 +11,10 @@
     <name>iConfig-common Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
+    <properties>
+        <maven_deploy_skip>false</maven_deploy_skip>
+    </properties>
+
     <dependencies>
 
         <dependency>
