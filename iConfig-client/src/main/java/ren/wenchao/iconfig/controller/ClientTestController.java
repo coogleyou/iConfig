@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ren.wenchao.iconfig.common.conponent.server.TomcatServer;
 import ren.wenchao.iconfig.common.zookeeper.ZkComponent;
 import ren.wenchao.iconfig.server.service.IConfig;
-import ren.wenchao.iconfig.server.service.ServerRegister;
+import ren.wenchao.iconfig.common.conponent.server.ServerRegister;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;

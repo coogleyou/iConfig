@@ -1,4 +1,4 @@
-package ren.wenchao.iconfig.server.service;
+package ren.wenchao.iconfig.common.conponent.server;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Throwables;
@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriTemplate;
-import ren.wenchao.iconfig.common.conponent.server.TomcatServer;
 import ren.wenchao.iconfig.common.util.HostUtil;
 import ren.wenchao.iconfig.common.zookeeper.ZkComponent;
 import ren.wenchao.iconfig.common.zookeeper.ZkConstrants;
