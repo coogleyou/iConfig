@@ -13,13 +13,14 @@ import ren.wenchao.iconfig.common.zookeeper.ZkComponent;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 /**
  * @author rollenholt
- *         最终业务系统使用的类
+ * 最终业务系统使用的类
  */
 public class IConfig {
 
@@ -30,7 +31,7 @@ public class IConfig {
 
     private ZkComponent zkComponent;
 
-    private boolean isFirstFetch = true;
+    private AtomicReference<Boolean> isFirstFetch = new AtomicReference<>(true);
 
     private static final ConcurrentMap<String, String> allConfig = Maps.newConcurrentMap();
 
@@ -77,10 +78,9 @@ public class IConfig {
             Map<String, String> configMap = processNodeData(path, nodeCache);
             allConfig.putAll(configMap);
         });
-        if (isFirstFetch) {
+        if (isFirstFetch.compareAndSet(true, false)) {
             Map<String, String> configMap = processNodeData(path, nodeCache);
             allConfig.putAll(configMap);
-            isFirstFetch = false;
         }
     }
 
@@ -91,7 +91,7 @@ public class IConfig {
         }
         String currentDataStr = new String(currentData.getData());
         logger.info("current data is : {}", currentDataStr);
-        List<String> strings = Splitter.on("=").splitToList(new String(currentDataStr));
+        List<String> strings = Splitter.on("=").splitToList(currentDataStr);
         Map<String, String> map = Maps.newHashMap();
         map.put(strings.get(0), strings.get(1));
         return map;
