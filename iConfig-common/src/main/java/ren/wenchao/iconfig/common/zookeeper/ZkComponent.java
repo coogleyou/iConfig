@@ -12,6 +12,8 @@ import org.apache.zookeeper.CreateMode;
 import org.springframework.stereotype.Component;
 import ren.wenchao.iconfig.common.face.NodeChangedListener;
 
+import java.util.List;
+
 /**
  * @author rollenholt
  */
@@ -96,6 +98,10 @@ public class ZkComponent {
 
     public byte[] getData(String path) throws Exception {
         return client.getData().forPath(path);
+    }
+
+    public List<String> getChilds(String path) throws Exception {
+        return client.getChildren().forPath(path);
     }
 
     public void watchNodeData(String path, boolean dataIsCompressed, NodeChangedListener callback) throws Exception{

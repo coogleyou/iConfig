@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ren.wenchao.iconfig.common.pojo.AppServerInfo;
 import ren.wenchao.iconfig.core.pojo.vo.ApplicationConfigInfo;
 import ren.wenchao.iconfig.core.pojo.vo.ConfigedApplication;
 import ren.wenchao.iconfig.core.service.ApplicationService;
@@ -54,7 +55,7 @@ public class ApplicationController {
     @RequestMapping(value = "/{applicationCode}/serverInfo", method = RequestMethod.GET)
     @ResponseBody
     public JsonV2 queryServerInfo(@PathVariable("applicationCode") String applicationCode) {
-//        applicationService.queryServerInfo(applicationCode);
-        return new JsonV2(1, "", null);
+        List<AppServerInfo> appServerInfos = applicationService.queryServerInfo(applicationCode);
+        return new JsonV2(1, "", appServerInfos);
     }
 }

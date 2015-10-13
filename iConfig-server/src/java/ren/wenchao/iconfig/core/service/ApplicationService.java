@@ -1,6 +1,7 @@
 package ren.wenchao.iconfig.core.service;
 
 import org.springframework.stereotype.Service;
+import ren.wenchao.iconfig.common.pojo.AppServerInfo;
 import ren.wenchao.iconfig.common.zookeeper.ZkComponent;
 import ren.wenchao.iconfig.core.dao.ApplicationDao;
 import ren.wenchao.iconfig.core.pojo.vo.ApplicationConfigInfo;
@@ -54,5 +55,9 @@ public class ApplicationService {
         zkComponent.create(path + "/" + "beta", new byte[0]);
         zkComponent.create(path + "/" + "prod", new byte[0]);
         applicationDao.joinIConfig(applicationCode);
+    }
+
+    public List<AppServerInfo> queryServerInfo(String applicationCode) {
+        return null;
     }
 }
