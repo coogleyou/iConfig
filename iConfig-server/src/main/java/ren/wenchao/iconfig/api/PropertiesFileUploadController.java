@@ -14,3 +14,4 @@ public class PropertiesFileUploadController {
     @Resource
     private PropertiesFileUploadService propertiesFileUploadService;
 }
+
